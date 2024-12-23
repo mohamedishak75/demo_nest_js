@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { AppService } from './app.service';
 import { modelVoiture } from './model/voiture';
 
@@ -7,7 +16,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Post()
-  create(@Body() createCatDto: modelVoiture) {
+  create(@Body() createVoitureDto: modelVoiture) {
     return 'This action adds a new voiture';
   }
 
@@ -22,7 +31,7 @@ export class AppController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateCatDto: modelVoiture) {
+  update(@Param('id') id: string, @Body() updateVoitureDto: modelVoiture) {
     return `This action updates a #${id} voiture`;
   }
 
