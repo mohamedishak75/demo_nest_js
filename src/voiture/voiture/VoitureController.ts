@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Inject,
   Param,
   Post,
   Put,
@@ -10,13 +11,16 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { modelVoiture } from 'src/model/voiture';
+import { VoitureService } from './voiture.service';
 
 @Controller()
 export class VoitureController {
-  @UseGuards(AuthGuard)
+  constructor(private voitureService: VoitureService) {}
+
+  //@UseGuards(AuthGuard)
   @Post()
-  create(@Body() createVoiture: modelVoiture) {
-    return 'This action adds a new voiture';
+  async create(@Body() createVoiture: modelVoiture) {
+    return this.voitureService.create(createVoiture);
   }
 
   @Get(':id')
