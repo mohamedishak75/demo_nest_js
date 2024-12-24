@@ -1,7 +1,19 @@
-import { Body, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
+import { AuthGuard } from 'src/auth/auth.guard';
 import { modelVoiture } from 'src/model/voiture';
 
+@Controller()
 export class VoitureController {
+  @UseGuards(AuthGuard)
   @Post()
   create(@Body() createVoiture: modelVoiture) {
     return 'This action adds a new voiture';
