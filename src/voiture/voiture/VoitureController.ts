@@ -3,29 +3,48 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Inject,
   Param,
   Post,
   Put,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { modelVoiture } from 'src/model/voiture';
 import { VoitureService } from './voiture.service';
-
-@Controller()
+import { response } from 'express';
+@Controller('voiture')
 export class VoitureController {
   constructor(private voitureService: VoitureService) {}
 
   //@UseGuards(AuthGuard)
   @Post()
-  async create(@Body() createVoiture: modelVoiture) {
-    return this.voitureService.create(createVoiture);
+  async create(@Res() response, @Body() createVoiture: modelVoiture) {
+    try {
+      const newVoiture = await this.voitureService.create(createVoiture);
+      console.log('dddddddddddddddddddddddddd', createVoiture);
+      return response.status(HttpStatus.CREATED).json({
+        message: 'Student has been created successfully',
+        newVoiture,
+      });
+    } catch (err) {
+      return response.status(HttpStatus.BAD_REQUEST).json({
+        statusCode: 400,
+        message: 'Error: Student not created!',
+        error: 'Bad Request',
+      });
+    }
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return `This action returns a #${id} voiture`;
+  @Get()
+  async findAll(@Res() response) {
+    const allVoiture = await this.voitureService.findAll();
+    return response.status(HttpStatus.CREATED).json({
+      message: 'Student has been created successfully',
+      allVoiture,
+    });
   }
 
   @Put(':id')

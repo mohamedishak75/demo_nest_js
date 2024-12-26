@@ -1,5 +1,5 @@
+import { SchemaFactory } from '@nestjs/mongoose';
 import { Prop, Schema } from '@nestjs/mongoose/dist/decorators';
-import mongoose from 'mongoose';
 
 export class modelVoiture {
   numeroSerie: number;
@@ -19,4 +19,5 @@ export class Voiture {
   @Prop()
   marqueVoiture: string;
 }
-export const voitureSchema = new mongoose.Schema(Voiture);
+
+export const VoitureSchema = SchemaFactory.createForClass(Voiture);
