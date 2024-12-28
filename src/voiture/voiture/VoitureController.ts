@@ -20,7 +20,7 @@ import { response } from 'express';
 export class VoitureController {
   constructor(private voitureService: VoitureService) {}
 
-  //@UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   @Post()
   async create(@Res() response, @Body() createVoiture: modelVoiture) {
     try {
@@ -46,6 +46,8 @@ export class VoitureController {
       allVoiture,
     });
   }
+
+  @UseGuards(AuthGuard)
   @Delete(':id')
   async deleteVoiture(@Param('id') id, @Res() response) {
     try {
