@@ -11,8 +11,14 @@ export class VoitureService {
 
   async create(createVoiture: modelVoiture): Promise<Voiture> {
     const createdCat = new this.voitureModel(createVoiture);
-    console.log('dto creer', createdCat);
     return createdCat.save();
+  }
+
+  async deleteVoiture(idVoiture: string): Promise<Voiture> {
+    return this.voitureModel.findByIdAndDelete(idVoiture).exec();
+  }
+  async getVoiture(idVoiture: string): Promise<Voiture> {
+    return this.voitureModel.findById(idVoiture).exec();
   }
 
   async findAll(): Promise<Voiture[]> {
